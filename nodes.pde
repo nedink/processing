@@ -58,7 +58,8 @@ void draw() {
   }
   
   if (dragNode != null) {
-    
+    dragNode.xy.x = mouseX;
+    dragNode.xy.y = mouseY;
   }
   
 }
