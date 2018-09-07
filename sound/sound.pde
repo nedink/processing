@@ -9,12 +9,18 @@ int bands = 256;
 float[] spectrum = new float[bands];
 
 void setup() {
-  //size(1000, 800);
-  fullScreen();
+  size(600, 400);
   
   fft = new FFT(this, bands);
-  //sf = new SoundFile(this, "audio.mp3");
-  sf = new SoundFile(this, "energize.aiff");
+  
+  sf = new SoundFile(this, "audio.aiff");
+  try {
+    sf.frames();
+  }
+  catch(NullPointerException e) {
+    sf = new SoundFile(this, "audio.mp3");
+  }
+  
   fft.input(sf);
   
   sf.play();
@@ -43,8 +49,8 @@ void draw() {
   //background(avg > 0.007 ? avg * 255 * 10 : 0);
   background(max > 0.5 ? max * 0.1 * 255 : 0);
   
-  println(max);
-  println(avg);
+  //println(max);
+  //println(avg);
   
   float last = spectrum[4];
   boolean flip = false;
