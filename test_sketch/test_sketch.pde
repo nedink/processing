@@ -9,7 +9,8 @@ int bands = 256;
 float[] spectrum = new float[bands];
 
 void setup() {
-  size(600, 400);
+  //size(600, 400);
+  fullScreen();
   
   fft = new FFT(this, bands);
   
@@ -18,7 +19,7 @@ void setup() {
     sf.frames();
   }
   catch(NullPointerException e) {
-    sf = new SoundFile(this, "audio.mp3");
+    System.exit(1);
   }
   
   fft.input(sf);
