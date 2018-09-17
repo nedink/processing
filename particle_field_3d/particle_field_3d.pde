@@ -1,14 +1,21 @@
 import java.util.Comparator;
 import java.util.Arrays;
 
-int depth = 200;
+int depth;
 Orb[] orbs;
 //float[] xs, ys, zs;
-int num = 150;
+int num;
+float STROKE_WEIGHT;
 
 void setup() {
-  size(200, 200, P3D);
+  //size(200, 200, P3D);
+  fullScreen(P3D);
   background(0);
+  
+  num = (int)(width * 0.1);
+  DIST = width * 0.075;
+  depth = (int)(width * 0.5);
+  STROKE_WEIGHT = width * 0.001;
 
   //xs = new float[num]; 
   //ys = new float[num]; 
@@ -36,9 +43,12 @@ void setup() {
 
 float d = 0;
 float r = 0;
-float DIST = 40;
+float DIST;
 
 void draw() {
+  if (mousePressed)
+    return;
+    
   background(0);
   translate(width/2, height/2, depth/4);
   
@@ -49,9 +59,9 @@ void draw() {
   
   
   for (int i = 0; i < num; ++i) {
-    
-    if (!mousePressed)
-      orbs[i].step();
+    orbs[i].step();
+    //if (!mousePressed)
+      
     
     //stroke(255);
     //strokeWeight(2);
@@ -60,12 +70,12 @@ void draw() {
     
     for (Orb o : orbs[i].dists.keySet()) {
       float dist = orbs[i].dists.get(o);
-      if (dist > 60)
+      if (dist > DIST)
         continue;
       float norm = norm(dist, DIST, 0);
         float val = norm * 255;
         //strokeWeight(norm(orbs[i].z, 0, orbs[i].range.z) * 10);
-        strokeWeight(2);
+        strokeWeight(STROKE_WEIGHT);
         stroke(255, val);
         //line(xs[i], ys[i], zs[i], xs[j], ys[j], zs[j]);
         line(orbs[i].x, orbs[i].y, orbs[i].z, o.x, o.y, o.z);
